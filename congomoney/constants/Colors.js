@@ -1,6 +1,6 @@
 export default Colors ={
  primary :'#0080FF',
- textColor:'#ddd',
+ textColor:'#fff',
  //italic Coor
  gray:'gray'
 } 

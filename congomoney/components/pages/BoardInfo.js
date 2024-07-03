@@ -7,11 +7,17 @@ export default function BoardInfo({ id,imageIcon, tel, sold}) {
   return (
     
     <View style={styles.container}>
-    <View >
-      <FontAwesome name={imageIcon} size={26} />
-
-      <Text style={styles.tel}>{tel}</Text>
+    <View style={{flexDirection:'row', padding:2,margin:2,justifyContent:'space-between',
+    alignItems:'center'
+  
+    }}>
+      <Image source={imageIcon}style={{width:60,height:60,
+        borderRadius:100
+      }} />
+       <Text style={{marginLeft:0,fontSize:18,fontWeight:'bold'}}>{id} </Text>
+      
       </View>
+      <Text style={styles.tel}>{tel}</Text>
       <TouchableOpacity>
       <View style={styles.money}>
        
@@ -26,7 +32,7 @@ export default function BoardInfo({ id,imageIcon, tel, sold}) {
 const styles =StyleSheet.create({
     money:{
     
-        backgroundColor:'#ddd',
+        backgroundColor:'#fff',
       
         flexDirection:'row',
         paddingVertical:20,
@@ -34,12 +40,18 @@ const styles =StyleSheet.create({
         paddingHorizontal:10,
         margin:20,
         borderRadius:10,
+        borderWidth:1,
+        borderColor:'#ddd',
+        shadowOpacity:0.2,
+        shadowColor:'#000',
+        shadowOffset:{width:0,height:5}
   
     },
     tel:{
-        fontSize:18,
-        fontWeight:'bold',
-        padding:20,
+        fontSize:16,
+        fontWeight:'100',
+        padding:2,
+        margin:1,
 
     },
     sold:{

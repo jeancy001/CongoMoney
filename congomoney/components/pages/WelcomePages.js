@@ -46,8 +46,5 @@ const styles = StyleSheet.create({
         fontWeight:'bold',
         borderRadius:8,
 
-
-
-
     }
 })
