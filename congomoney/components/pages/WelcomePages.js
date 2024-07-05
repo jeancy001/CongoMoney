@@ -1,6 +1,7 @@
 import { View, Text ,Image, StyleSheet ,TouchableOpacity, Alert} from 'react-native'
 import React from 'react'
 import Colors from '../../constants/Colors'
+import { Platform } from 'react-native'
 
 
 export default function WelcomePages({navigation}) {
@@ -44,7 +45,7 @@ const styles = StyleSheet.create({
         fontSize:20,
         textAlign:'center',
         fontWeight:'bold',
-        borderRadius:8,
+        borderRadius:Platform.OS ==='android'?10:50,
 
     }
 })

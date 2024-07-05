@@ -1,9 +1,46 @@
-import { View, Text ,Image, StyleSheet } from 'react-native'
-import React from 'react'
+import { View, Text ,Image, StyleSheet, Alert } from 'react-native'
+import React, { useEffect, useState } from 'react'
 import { FontAwesome } from '@expo/vector-icons'
-import { TouchableOpacity } from 'react-native'
+import { TouchableOpacity } from 'react-native';
+import * as ImagePicker from 'expo-image-picker';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
-export default function BoardInfo({ id,imageIcon, tel, sold}) {
+
+
+export default function BoardInfo({ id, tel, sold}) {
+  const [selectedImage, setSelectedImage] = useState(null);
+  const [visible, setvisible]= useState(true);
+
+  const ImagePickerAsync = async()=>{
+    let result = await ImagePicker.launchImageLibraryAsync({allowsEditing:true, quality:1});
+      
+    if(!result.canceled)
+    {
+     setSelectedImage(result.assets[0].uri);
+     setvisible(false)
+   
+        
+    }else{
+      console.log("Sorry no Image selected ");
+    }
+  };
+
+
+  const CancelBtn =()=>{
+    return false;
+  }
+  //open camera 
+  const ImagePickerCamera = async()=>{
+    let camera = await ImagePicker.launchCameraAsync({allowsEditing:true, quality:1});
+    if(!camera.canceled)
+    {
+      setSelectedImage(camera.assets[0].uri);
+      setvisible(false);
+    }else{
+      console.log("Sorry ")
+    }
+
+  }
   return (
     
     <View style={styles.container}>
@@ -11,9 +48,30 @@ export default function BoardInfo({ id,imageIcon, tel, sold}) {
     alignItems:'center'
   
     }}>
-      <Image source={imageIcon}style={{width:60,height:60,
-        borderRadius:100
-      }} />
+      <TouchableOpacity onPress={()=>(Alert.alert('Profile Info','Change profile',[{
+        text:'Choose a pic',
+        onPress:()=>ImagePickerAsync()
+      },
+      {
+        text:'Camera',
+        onPress:()=>ImagePickerCamera()
+      },
+        {text:'Cancel',
+          onPress:()=> CancelBtn()
+        }
+      ]
+        ))} >
+        {visible ? <Image source={require('../../assets/users/user.png')} style={{width:60,height:60,
+            borderRadius:100}}/>:
+         (
+
+          <Image source={{uri:selectedImage}}style={{width:60,height:60,
+            borderRadius:100
+          }} />
+      
+         )
+        }
+    </TouchableOpacity>
        <Text style={{marginLeft:0,fontSize:18,fontWeight:'bold'}}>{id} </Text>
       
       </View>
